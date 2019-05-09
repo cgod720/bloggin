@@ -45,7 +45,6 @@ class Form extends Component {
   render(){
     return(
       <div>
-      <h1>Bloggin' Spot</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
@@ -59,8 +58,9 @@ class Form extends Component {
             onChange={this.handleAuthorChange}
             value={this.state.author}
           />
-          <input
-            type="text"
+          <br/>
+          <textarea
+            type="textarea"
             className="big"
             placeholder="Body"
             onChange={this.handleBodyChange}

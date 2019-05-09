@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Form from './components/Form'
+import Form from './components/Form';
+import EntriesList from './components/EntriesList';
 
 class App extends Component {
   constructor(props){
@@ -67,12 +68,45 @@ class App extends Component {
     })
   }
 
+  entryDelete = (elementId, arrayIndex, currentArray) => {
+    fetch(`https://blogginspot.herokuapp.com/entry/${elementId}`, {
+      method: 'DELETE'
+    })
+    .then((data) => {
+      this.removeFromArray(currentArray, arrayIndex)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  removeFromArray =(array, arrayIndex) => {
+    this.setState((prevState) => {
+      prevState[array].splice(arrayIndex, 1)
+      return {
+        [array]: prevState[array]
+      }
+    })
+  }
+
+  incrementMe = (entry, arrayIndex) => {
+    this.setState({
+      // entries[arrayIndex].meta.favs:
+    })
+  }
+
   componentDidMount(){
     this.fetchEntries()
   }
   render(){
+    console.table(this.state.entries);
     return(
       <div>
+        <h1>Bloggin' Spot</h1>
+        <EntriesList
+          entries={this.state.entries}
+          entryDelete={this.entryDelete}
+        />
         <Form
           postEntry={this.postEntry}
         />
